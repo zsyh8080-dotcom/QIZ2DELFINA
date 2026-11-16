@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --df-bg: #0b1533;
+    --df-deep: #071026;
+    --df-panel: rgba(16, 36, 82, 0.56);
+    --df-cream: #fff9f0;
+    --df-ink: #1e1b33;
+    --df-gold: #ffd45a;
+    --df-gold-deep: #f5b83d;
+    --df-teal: #5ee6d0;
+    --df-coral: #ff8a6b;
+    --df-lavender: #8c9bff;
+    font-family: "Vazirmatn", Tahoma, system-ui, sans-serif;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #0b1533;
+    color: #f2f5ff;
+    font-family: "Vazirmatn", Tahoma, system-ui, sans-serif;
+  }
+}
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) scale(0.9);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.45;
+  }
+  85% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-105vh) scale(1.12);
+    opacity: 0;
+  }
+}
+
+@keyframes delphiFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes nudgeShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes dashFlow {
+  0% {
+    stroke-dashoffset: 44;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes gearSpinSlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes floatUpFade {
+  0% {
+    transform: translateY(10px) scale(0.85);
+    opacity: 0;
+  }
+  18% {
+    transform: translateY(0) scale(1.06);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-22px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-34px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes scanSweep {
+  0%,
+  100% {
+    transform: translateY(4px);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(108px);
+    opacity: 0.9;
+  }
+}
+
+@keyframes scanSweepShort {
+  0%,
+  100% {
+    transform: translateY(2px);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(62px);
+    opacity: 0.9;
+  }
+}
+
+@keyframes ripplePing {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+@keyframes equalizerPulse {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes celebrateBump {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes waveFloat {
+  0%,
+  100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(-6px);
+  }
+}
+
+.animate-bubble {
+  animation: bubbleRise 18s linear infinite;
+}
+
+.animate-delphi {
+  animation: delphiFloat 3.6s ease-in-out infinite;
+}
+
+.animate-pop {
+  animation: popIn 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-shake {
+  animation: nudgeShake 260ms ease-in-out both;
+}
+
+.animate-dash {
+  animation: dashFlow 1.6s linear infinite;
+}
+
+.animate-gear {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gearSpinSlow 7s linear infinite;
+}
+
+.animate-pulse-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulseGlow 2.2s ease-in-out infinite;
+}
+
+.animate-float-xp {
+  animation: floatUpFade 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scan {
+  animation: scanSweep 2.6s ease-in-out infinite;
+}
+
+.animate-scan-short {
+  animation: scanSweepShort 2.2s ease-in-out infinite;
+}
+
+.animate-ripple {
+  animation: ripplePing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-eq {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: equalizerPulse 0.85s ease-in-out infinite;
+}
+
+.animate-celebrate-bump {
+  animation: celebrateBump 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-wave-float {
+  animation: waveFloat 4.5s ease-in-out infinite;
+}
+
+.reduced-motion .animate-bubble,
+.reduced-motion .animate-delphi,
+.reduced-motion .animate-pop,
+.reduced-motion .animate-shake,
+.reduced-motion .animate-dash,
+.reduced-motion .animate-gear,
+.reduced-motion .animate-pulse-glow,
+.reduced-motion .animate-float-xp,
+.reduced-motion .animate-scan,
+.reduced-motion .animate-scan-short,
+.reduced-motion .animate-ripple,
+.reduced-motion .animate-eq,
+.reduced-motion .animate-celebrate-bump,
+.reduced-motion .animate-wave-float {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bubble,
+  .animate-delphi,
+  .animate-pop,
+  .animate-shake,
+  .animate-dash,
+  .animate-gear,
+  .animate-pulse-glow,
+  .animate-float-xp,
+  .animate-scan,
+  .animate-scan-short,
+  .animate-ripple,
+  .animate-eq,
+  .animate-celebrate-bump,
+  .animate-wave-float {
+    animation: none !important;
+  }
+}
