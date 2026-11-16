@@ -537,13 +537,13 @@ const FeaturesStage: React.FC<{
               }`}
             >
               <span className="flex items-center gap-3">
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white/15 text-xs font-black text-[#DCEBFF]">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#0A1940]/15 text-xs font-black text-[#141933]">
                   {toFa(dtIdx + 1)}
                 </span>
                 <span aria-hidden="true">{dt.icon}</span>
-                <span>{dt.label}</span>
+                <span className="text-[#141933]">{dt.label}</span>
               </span>
-              <span className="text-xs font-bold text-[#DCEBFF]">انتخاب نوع داده</span>
+              <span className="text-xs font-black text-[#141933]">انتخاب نوع داده</span>
             </button>
           );
         })}
