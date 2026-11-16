@@ -345,9 +345,10 @@ export default function App() {
           ctaLabel={phase === 'title' ? 'شروع' : undefined}
           isStartCta={phase === 'title'}
           onCtaClick={phase === 'title' ? () => startNewRun(true) : undefined}
+          character={phase === 'playing' ? 'official' : 'delphi'}
         />
       ) : (
-        <DelphiDock mood="celebrating" bubbles={delphiBubbles} />
+        <DelphiDock mood="celebrating" bubbles={delphiBubbles} character="delphi" />
       )}
 
       <ExitDialog

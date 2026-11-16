@@ -198,64 +198,28 @@ export const KID_SIMPLE_LEXICON: LexiconReplacementRule[] = [
 // Grammar rules simplifying stiff/formal structures to active conversational Persian
 export const GRAMMAR_SIMPLIFICATION_RULES: GrammarRule[] = [
   {
-    id: 'gram-passive-shavad',
-    pattern: persianPhraseRegex('می‌شود'),
-    replacement: 'میشه',
-    label: 'تبدیل فعل رسمی «می‌شود» به گفتاریِ روان «میشه»'
-  },
-  {
-    id: 'gram-passive-gardad',
-    pattern: persianPhraseRegex('می‌گردد'),
-    replacement: 'میشه',
-    label: 'حذف فعل اداری «می‌گردد»'
-  },
-  {
-    id: 'gram-mishe-unified',
-    pattern: persianPhraseRegex('می‌شه'),
-    replacement: 'میشه',
-    label: 'یکدست‌سازی «می‌شه» به «میشه»'
-  },
-  {
     id: 'gram-passive-ast',
     pattern: persianPhraseRegex('عبارت است از'),
     replacement: 'یعنی',
-    label: 'جایگزینی عبارت رسمی «عبارت است از» با «یعنی»'
+    label: 'جایگزینی عبارت «عبارت است از» با «یعنی»'
   },
   {
     id: 'gram-cherake',
     pattern: persianPhraseRegex('چراکه'),
-    replacement: 'چون',
-    label: 'ساده‌سازی حرف ربط کتابی «چراکه» به «چون»'
-  },
-  {
-    id: 'gram-azonja',
-    pattern: persianPhraseRegex('از اونجایی که'),
-    replacement: 'چون',
-    label: 'کوتاه کردن عبارت طولانی «از اونجایی که»'
+    replacement: 'زیرا',
+    label: 'استفاده از «زیرا»'
   },
   {
     id: 'gram-azonja-formal',
     pattern: persianPhraseRegex('از آنجایی که'),
-    replacement: 'چون',
-    label: 'کوتاه کردن عبارت کتابی «از آنجایی که»'
+    replacement: 'زیرا',
+    label: 'استفاده از «زیرا»'
   },
   {
     id: 'gram-onvan',
     pattern: persianPhraseRegex('به‌عنوان'),
-    replacement: 'مثلِ',
-    label: 'تبدیل «به‌عنوان» به «مثلِ»'
-  },
-  {
-    id: 'gram-mored-nazar',
-    pattern: persianPhraseRegex('مورد نظر ما'),
-    replacement: 'که می‌خوایم',
-    label: 'ساده‌سازی عبارت رسمی «مورد نظر ما»'
-  },
-  {
-    id: 'gram-ast-end',
-    pattern: persianPhraseRegex('است'),
-    replacement: 'هست',
-    label: 'لحن صمیمی‌تر برای کودک ۸ تا ۱۳ سال'
+    replacement: 'به عنوانِ',
+    label: 'روان‌سازی عبارت'
   }
 ];
 

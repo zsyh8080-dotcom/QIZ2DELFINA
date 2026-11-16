@@ -11,10 +11,12 @@ interface DelphiDockProps {
   ctaDisabled?: boolean;
   onCtaClick?: () => void;
   isStartCta?: boolean;
+  character?: 'delphi' | 'official';
 }
 
 const DELPHI_CURIOUS_SRC = '/src/assets/images/delphi_curious_1794818590874.jpg';
 const DELPHI_CELEBRATE_SRC = '/src/assets/images/delphi_celebrate_1794818592315.jpg';
+const OFFICIAL_AVATAR_SRC = '/src/assets/images/exam_guide_avatar_1794833842282.jpg';
 
 function renderHighlightedText(text: string, keywords?: string[]): React.ReactNode {
   if (!keywords || keywords.length === 0) return text;
@@ -45,7 +47,8 @@ export const DelphiDock: React.FC<DelphiDockProps> = ({
   ctaLabel,
   ctaDisabled = false,
   onCtaClick,
-  isStartCta = false
+  isStartCta = false,
+  character = 'delphi'
 }) => {
   const [page, setPage] = useState(0);
   const bubbleSignature = bubbles.map((b) => b.id).join('|');
@@ -57,11 +60,16 @@ export const DelphiDock: React.FC<DelphiDockProps> = ({
   const total = Math.max(1, bubbles.length);
   const safeIdx = Math.min(page, total - 1);
   const activeBubble = bubbles[safeIdx] ?? { id: 'empty', text: '' };
-  const portraitSrc = mood === 'celebrating' ? DELPHI_CELEBRATE_SRC : DELPHI_CURIOUS_SRC;
+  const portraitSrc =
+    character === 'official'
+      ? OFFICIAL_AVATAR_SRC
+      : mood === 'celebrating'
+        ? DELPHI_CELEBRATE_SRC
+        : DELPHI_CURIOUS_SRC;
 
   return (
     <section
-      aria-label="راهنمای دلفی"
+      aria-label={character === 'official' ? 'مسئول آزمون' : 'راهنمای دلفی'}
       className="relative z-20 mx-auto w-full max-w-[640px] px-3 pt-2 pb-4 sm:px-0"
     >
       <div className="flex flex-col gap-3">
@@ -74,7 +82,7 @@ export const DelphiDock: React.FC<DelphiDockProps> = ({
             >
               <img
                 src={portraitSrc}
-                alt="دلفی راهنمای تو"
+                alt={character === 'official' ? 'مسئول آزمون' : 'دلفی راهنمای تو'}
                 referrerPolicy="no-referrer"
                 className="h-full w-full object-cover"
               />

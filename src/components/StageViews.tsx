@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   CinemaMode,
   computeCentroid,
@@ -57,8 +58,12 @@ const ConceptMap: React.FC<{ currentIndex: number }> = ({ currentIndex }) => {
   return (
     <div
       aria-label="نقشهٔ پیوستگی مفاهیم یادگیری ماشین"
-      className="relative rounded-2xl border border-[#8CB9FF]/20 bg-[#08173B]/80 px-2 py-2.5 sm:px-3"
+      className="relative rounded-2xl border border-[#8CB9FF]/20 bg-[#08173B]/80 px-2.5 py-2.5 sm:px-3"
     >
+      <div className="mb-1.5 flex items-center justify-between">
+        <span className="text-xs font-black text-[#FFE178]">نقشهٔ مأموریت</span>
+      </div>
+
       <div className="relative">
         {/* SVG connector lines bridging the 5 concept centers horizontally (RTL: 0 on right -> 4 on left) */}
         <svg
@@ -79,11 +84,11 @@ const ConceptMap: React.FC<{ currentIndex: number }> = ({ currentIndex }) => {
                 y1={12}
                 x2={xEnd}
                 y2={12}
-                stroke={isCurrentLead ? '#FFD45A' : isCompleted ? '#5EE6D0' : '#8CB9FF'}
-                strokeOpacity={isCompleted ? 0.95 : 0.25}
-                strokeWidth={isCompleted ? 3 : 2}
-                strokeDasharray={isCurrentLead ? '6 4' : isCompleted ? undefined : '4 4'}
-                className={isCurrentLead ? 'animate-dash' : undefined}
+                stroke={isCurrentLead || isCompleted ? '#FFE178' : '#7DB3FF'}
+                strokeOpacity={isCompleted ? 1 : 0.25}
+                strokeWidth={isCompleted ? 4 : 2}
+                strokeLinecap="round"
+                style={{ filter: isCurrentLead || isCompleted ? 'drop-shadow(0 0 6px #FFD45A)' : undefined }}
               />
             );
           })}
@@ -100,7 +105,7 @@ const ConceptMap: React.FC<{ currentIndex: number }> = ({ currentIndex }) => {
                     isActive
                       ? 'animate-pulse-glow border-[#FFF9F0] bg-[#FFD45A] text-[#0B1533] shadow-[0_0_12px_rgba(255,212,90,0.65)]'
                       : isDone
-                        ? 'border-[#5EE6D0] bg-[#164A5B] text-[#5EE6D0]'
+                        ? 'border-[#FFD45A] bg-[#FFB800] text-[#0B1533]'
                         : 'border-white/25 bg-[#0E2457] text-white/55'
                   }`}
                 >
@@ -108,7 +113,7 @@ const ConceptMap: React.FC<{ currentIndex: number }> = ({ currentIndex }) => {
                 </span>
                 <span
                   className={`line-clamp-2 text-[9.5px] leading-tight font-bold sm:text-[11px] ${
-                    isActive ? 'text-[#FFD45A]' : isDone ? 'text-[#7DE8E0]' : 'text-[#9BC2FF]/65'
+                    isActive ? 'text-[#FFD45A]' : isDone ? 'text-[#FFD45A]' : 'text-[#9BC2FF]/65'
                   }`}
                 >
                   {node.label}
@@ -139,48 +144,56 @@ export const StageViews: React.FC<StageViewsProps> = ({
     >
       <ConceptMap currentIndex={stageIndex} />
 
-      {stageMeta.id === 'cinema' && (
-        <CinemaStage
-          deck={deck}
-          onReportAnswer={onReportAnswer}
-          onNudge={onNudge}
-          onStageComplete={onStageComplete}
-        />
-      )}
-      {stageMeta.id === 'features' && (
-        <FeaturesStage
-          deck={deck}
-          onReportAnswer={onReportAnswer}
-          onNudge={onNudge}
-          onStageComplete={onStageComplete}
-        />
-      )}
-      {stageMeta.id === 'supervised' && (
-        <SupervisedStage
-          deck={deck}
-          onReportAnswer={onReportAnswer}
-          onNudge={onNudge}
-          onGuide={onGuide}
-          onStageComplete={onStageComplete}
-        />
-      )}
-      {stageMeta.id === 'clustering' && (
-        <ClusteringStage
-          deck={deck}
-          onReportAnswer={onReportAnswer}
-          onNudge={onNudge}
-          onGuide={onGuide}
-          onStageComplete={onStageComplete}
-        />
-      )}
-      {stageMeta.id === 'synthesis' && (
-        <SynthesisStage
-          deck={deck}
-          onReportAnswer={onReportAnswer}
-          onNudge={onNudge}
-          onStageComplete={onStageComplete}
-        />
-      )}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -12 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className="space-y-4"
+      >
+        {stageMeta.id === 'cinema' && (
+          <CinemaStage
+            deck={deck}
+            onReportAnswer={onReportAnswer}
+            onNudge={onNudge}
+            onStageComplete={onStageComplete}
+          />
+        )}
+        {stageMeta.id === 'features' && (
+          <FeaturesStage
+            deck={deck}
+            onReportAnswer={onReportAnswer}
+            onNudge={onNudge}
+            onStageComplete={onStageComplete}
+          />
+        )}
+        {stageMeta.id === 'supervised' && (
+          <SupervisedStage
+            deck={deck}
+            onReportAnswer={onReportAnswer}
+            onNudge={onNudge}
+            onGuide={onGuide}
+            onStageComplete={onStageComplete}
+          />
+        )}
+        {stageMeta.id === 'clustering' && (
+          <ClusteringStage
+            deck={deck}
+            onReportAnswer={onReportAnswer}
+            onNudge={onNudge}
+            onGuide={onGuide}
+            onStageComplete={onStageComplete}
+          />
+        )}
+        {stageMeta.id === 'synthesis' && (
+          <SynthesisStage
+            deck={deck}
+            onReportAnswer={onReportAnswer}
+            onNudge={onNudge}
+            onStageComplete={onStageComplete}
+          />
+        )}
+      </motion.div>
     </div>
   );
 };
@@ -516,8 +529,8 @@ const FeaturesStage: React.FC<{
         </div>
       </div>
 
-      {/* High-Contrast Tactile Vertical Flex-Col Data Type Buttons */}
-      <div className="flex flex-col gap-3">
+      {/* 2x2 Grid of Square Frosted Glassmorphism Cards with Glass Glow Hover & Clear Badges */}
+      <div className="grid grid-cols-2 gap-3">
         {DATA_TYPE_LABELS.map((dt, dtIdx) => {
           const isCorrect = pickedType === dt.id;
           const isShaking = shakeTypeId === dt.id;
@@ -528,22 +541,33 @@ const FeaturesStage: React.FC<{
               type="button"
               disabled={lockedOut}
               onClick={() => handleTypePick(dt.id)}
-              className={`flex min-h-[60px] w-full items-center justify-between rounded-[18px] border-2 px-4 py-3 text-right text-sm font-black transition-all duration-150 active:translate-y-0.5 sm:text-base ${
+              className={`group relative flex aspect-square flex-col items-center justify-between rounded-[22px] border-2 p-3 text-center transition-all duration-200 active:scale-95 ${
                 isShaking
-                  ? 'animate-shake border-[#F05252] bg-[#FFE8E3] text-[#8F1D1D] shadow-[0_3px_0_#C53030]'
+                  ? 'animate-shake border-[#F05252] bg-[#FFE8E3]/90 text-[#8F1D1D] shadow-[0_4px_20px_rgba(240,82,82,0.4)]'
                   : isCorrect
-                    ? 'animate-celebrate-bump border-[#1BB396] bg-[#D6FCF3] text-[#08473D] shadow-[0_3px_0_#148F79]'
-                    : 'border-[#7DB3FF]/60 bg-[#17367A] text-white shadow-[0_3px_0_#0A1940] hover:bg-[#1F4699] disabled:opacity-40 disabled:shadow-none'
+                    ? 'animate-celebrate-bump border-[#58E6CB] bg-[#0E8F78]/80 text-white shadow-[0_4px_24px_rgba(88,230,203,0.5)]'
+                    : 'border-[#7DB3FF]/45 bg-[#0A1D4A]/60 backdrop-blur-md text-white shadow-[0_8px_32px_rgba(3,10,28,0.37)] hover:border-[#FFD45A] hover:bg-[#15357B]/70 hover:shadow-[0_0_24px_rgba(255,212,90,0.45)] disabled:opacity-40 disabled:shadow-none'
               }`}
             >
-              <span className="flex items-center gap-3">
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#0A1940]/15 text-xs font-black text-[#141933]">
+              <div className="flex w-full items-center justify-between">
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 text-[11px] font-black text-white">
                   {toFa(dtIdx + 1)}
                 </span>
-                <span aria-hidden="true">{dt.icon}</span>
-                <span className="text-[#141933]">{dt.label}</span>
+                <span className="rounded-full bg-black/30 px-2 py-0.5 text-[10px] font-extrabold text-[#FFE178]">
+                  نوع داده
+                </span>
+              </div>
+
+              <div className="my-auto flex flex-col items-center gap-1.5">
+                <span className="text-3xl sm:text-4xl" aria-hidden="true">{dt.icon}</span>
+                <span className="rounded-xl border border-[#7DB3FF]/30 bg-[#08173B]/90 px-3 py-1 text-xs font-black tracking-wide text-white shadow-md sm:text-sm">
+                  {dt.label}
+                </span>
+              </div>
+
+              <span className="text-[10px] font-bold text-[#A5C7FF] group-hover:text-white">
+                انتخاب این مورد
               </span>
-              <span className="text-xs font-black text-[#141933]">انتخاب نوع داده</span>
             </button>
           );
         })}
@@ -713,9 +737,12 @@ const SupervisedStage: React.FC<{
             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#3932A8]/15 text-xs font-black text-[#3932A8]">
               ۱
             </span>
-            <svg viewBox="0 0 44 44" className="h-11 w-11 shrink-0" aria-hidden="true">
-              <rect x="4" y="8" width="16" height="28" rx="5" fill="#4B43C9" />
-              <rect x="24" y="8" width="16" height="28" rx="5" fill="#1BB396" />
+            <svg viewBox="0 0 52 52" className="h-12 w-12 shrink-0 drop-shadow-md" aria-hidden="true">
+              <rect x="4" y="10" width="20" height="32" rx="6" fill="#4B43C9" />
+              <rect x="28" y="10" width="20" height="32" rx="6" fill="#1BB396" />
+              <circle cx="14" cy="22" r="4" fill="#FFE178" />
+              <circle cx="38" cy="22" r="4" fill="#FFFFFF" />
+              <path d="M10 32 L18 32 M34 32 L42 32" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" />
             </svg>
             <div>
               <div className="text-sm font-black sm:text-base">دسته‌بندی</div>
@@ -739,10 +766,11 @@ const SupervisedStage: React.FC<{
             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#8F2B14]/15 text-xs font-black text-[#8F2B14]">
               ۲
             </span>
-            <svg viewBox="0 0 44 44" className="h-11 w-11 shrink-0" aria-hidden="true">
-              <path d="M8 32 A14 14 0 0 1 36 32" fill="none" stroke="#8F2B14" strokeWidth="4" strokeLinecap="round" />
-              <line x1="22" y1="32" x2="31" y2="19" stroke="#C53030" strokeWidth="3" strokeLinecap="round" />
-              <circle cx="22" cy="32" r="3.5" fill="#141933" />
+            <svg viewBox="0 0 52 52" className="h-12 w-12 shrink-0 drop-shadow-md" aria-hidden="true">
+              <rect x="6" y="8" width="40" height="36" rx="8" fill="#FFF2C6" stroke="#D97706" strokeWidth="2.5" />
+              <path d="M12 32 Q20 16 28 26 T40 14" fill="none" stroke="#D97706" strokeWidth="3.5" strokeLinecap="round" />
+              <circle cx="40" cy="14" r="4" fill="#DC2626" />
+              <text x="14" y="22" fill="#92400E" fontSize="11" fontWeight="900" fontFamily="sans-serif">123</text>
             </svg>
             <div>
               <div className="text-sm font-black sm:text-base">رگرسیون</div>

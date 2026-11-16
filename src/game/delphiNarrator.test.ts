@@ -7,7 +7,16 @@ import {
   simplifyDelphiHardWordsAndMetaphors
 } from './delphiNarrator';
 
-const PERSIAN_CONNECTORS = ['حالا که', 'پس', 'چون', 'برای همین'];
+const PERSIAN_CONNECTORS = [
+  'حالا که',
+  'پس',
+  'چون',
+  'برای همین',
+  'بنابراین',
+  'از آنجا که',
+  'اکنون که',
+  'زیرا'
+];
 const FORBIDDEN_BUBBLE_PUNCT = /[،,;؛:«»"'()]/;
 
 function hasConnector(text: string): boolean {
@@ -29,6 +38,7 @@ test('title_intro generates paginated short bubbles with connectors and no forbi
   const combined = bubbles.map((b) => b.text).join(' ');
   assert.equal(hasConnector(combined), true);
   assert.ok(combined.includes('یادگیری ماشین'));
+  assert.ok(combined.includes('مسئول آزمون'));
   assert.equal(combined.includes('یادگیرنده'), false);
 });
 
@@ -101,7 +111,7 @@ test('correct and wrong events maintain conversational tone, connectors, and str
   });
   assert.ok(wrong.includes('چون'));
   assert.ok(wrong.includes('پس'));
-  assert.ok(wrong.includes('امتحانش کن'));
+  assert.ok(wrong.includes('امتحان کنید'));
   assert.equal(FORBIDDEN_BUBBLE_PUNCT.test(wrong), false);
 });
 
